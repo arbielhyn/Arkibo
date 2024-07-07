@@ -9,6 +9,8 @@ gem 'sassc', '~> 2.0'
 #Pagination
 gem 'kaminari'
 
+#image
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"

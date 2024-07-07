@@ -1,30 +1,20 @@
-<div class="mb-8">
-  <h1 class="text-3xl font-bold mb-6">Products</h1>
+<div class="bg-white">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="sr-only">Explore Our Collection</h2>
 
-  <ul style="list-style-type: none;">
-    <% @categories.each do |category| %>
-      <li><%= link_to category.name, category_products_path(category) %></li>
-    <% end %>
-  </ul>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <% @products.each do |product| %>
+    <a href="<%= product_path(product) %>" class="group">
+      <div class="w-32 h-32 overflow-hidden rounded-lg">
+        <img src="https://thethirteenclub.ca/cdn/shop/files/IMG_8062_05597416-4e18-462e-bd3d-2c9892fd641b_470x.jpg?v=1716855261" alt="Description of your image" class="object-cover w-full h-full">
+      </div>
 
-  <ul style="list-style-type: none;" class="space-y-4">
-    <% @products.each do |product| %>
-      <li class="border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-200">
-        <% if product.images.attached? %>
-          <%= link_to product_path(product) do %>
-            <%= image_tag product.images.first.variant(resize: "300x300"), class: "rounded-lg mb-2" %>
-          <% end %>
-        <% end %>
-
-        <%= link_to product_path(product), class: "text-xl font-semibold text-blue-600 hover:underline" do %>
-          <%= product.name %>
-        <% end %>
-        
-        <p class="text-gray-700 mt-2"><%= product.description %></p>
-        <p class="text-gray-900 font-bold mt-4">Price: <%= number_to_currency(product.price) %></p>
-      </li>
-    <% end %>
-  </ul>
-
-  <%= paginate @products %>
+      <div class="mt-4 text-sm text-gray-700"><%= product.name %></div>
+      <div class="mt-1 text-lg font-medium text-gray-900"><%= number_to_currency(product.price) %></div>
+    </a>
+  <% end %>
+</div>
+    
+    <%= paginate @products %>
+  </div>
 </div>
