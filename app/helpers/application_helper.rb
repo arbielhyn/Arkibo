@@ -16,7 +16,7 @@ module ApplicationHelper
       product = Product.find(params[:id])
             # Add category breadcrumb if product is associated with a category
             if product.category
-              crumbs << link_to(product.category.name, category_path(product.category))
+              crumbs << link_to(product.category.name, root_path)
             end
       crumbs << link_to(product.name, product_path(product))
 
