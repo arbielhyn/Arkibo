@@ -1,6 +1,11 @@
 source "https://rubygems.org"
 
 ruby "3.3.0"
+# Active Admin
+gem 'activeadmin'
+gem 'devise'
+gem 'sassc', '~> 2.0'
+
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
@@ -67,3 +72,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.6"
+
+gem "webpacker", "~> 5.4"

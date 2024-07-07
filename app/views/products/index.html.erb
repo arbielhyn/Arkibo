@@ -1,0 +1,12 @@
+<h1 class="text-3xl font-bold mb-6">Products</h1>
+<ul class="space-y-4">
+  <% @products.each do |product| %>
+    <li class="border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-200">
+      <%= link_to product_path(product), class: "text-xl font-semibold text-blue-600 hover:underline" do %>
+        <%= product.name %>
+      <% end %>
+      <p class="text-gray-700 mt-2"><%= product.description %></p>
+      <p class="text-gray-900 font-bold mt-4">Price: <%= number_to_currency(product.price) %></p>
+    </li>
+  <% end %>
+</ul>
