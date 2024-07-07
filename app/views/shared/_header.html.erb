@@ -1,0 +1,30 @@
+<header x-data="{ open: false }" class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center">
+      <a href="/" class="text-lg font-bold text-gray-900">Arkibo</a>
+    </div>
+    <div class="hidden md:flex flex-1 justify-center items-center space-x-8">
+      <%= link_to 'Home', root_path, class: 'text-gray-700 hover:text-gray-900' %>
+      <%= link_to 'Shop', products_path, class: 'text-gray-700 hover:text-gray-900' %>
+      <!-- Add other links here when available -->
+    </div>
+    <div class="hidden md:flex space-x-4 items-center">
+      <!-- Add login and signup links when available -->
+    </div>
+    <div class="md:hidden">
+      <button @click="open = !open" class="text-gray-700 focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div x-show="open" class="md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <%= link_to 'Home', root_path, class: 'block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50' %>
+      <%= link_to 'Shop', products_path, class: 'block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50' %>
+      <!-- Add other links here when available -->
+    </div>
+  </div>
+</header>

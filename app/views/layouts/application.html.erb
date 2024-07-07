@@ -5,21 +5,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= javascript_importmap_tags %>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
   </head>
-
   <body class="bg-gray-100">
-    <!-- Navigation Bar -->
-
-
-    <!-- Main Content -->
-    <main class="container mx-auto mt-10 px-5 flex flex-col">
+    <%= render 'shared/header' %> <!-- Include the header partial here -->
+    <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-white mt-10 shadow-inner">
+    <footer class="bg-white mt-10">
       <div class="container mx-auto py-6 text-center">
         <p class="text-sm text-gray-500">&copy; 2024 Arkibo. All rights reserved.</p>
       </div>
