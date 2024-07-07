@@ -1,30 +1,14 @@
-<div class="mb-8">
-  <h1 class="text-3xl font-bold mb-6">Products</h1>
-
-  <ul style="list-style-type: none;">
-    <% @categories.each do |category| %>
-      <li><%= link_to category.name, category_products_path(category) %></li>
-    <% end %>
-  </ul>
-
+<!-- app/views/category_products/index.html.erb -->
+<h1>Products in <%= @category.name %></h1>
   <ul style="list-style-type: none;" class="space-y-4">
     <% @products.each do |product| %>
       <li class="border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-200">
-        <% if product.images.attached? %>
-          <%= link_to product_path(product) do %>
-            <%= image_tag product.images.first.variant(resize: "300x300"), class: "rounded-lg mb-2" %>
-          <% end %>
-        <% end %>
-
         <%= link_to product_path(product), class: "text-xl font-semibold text-blue-600 hover:underline" do %>
           <%= product.name %>
         <% end %>
-        
         <p class="text-gray-700 mt-2"><%= product.description %></p>
         <p class="text-gray-900 font-bold mt-4">Price: <%= number_to_currency(product.price) %></p>
       </li>
     <% end %>
   </ul>
-
-  <%= paginate @products %>
-</div>
+<%= link_to 'Back to Products', products_path %>

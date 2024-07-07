@@ -1,6 +1,26 @@
+# frozen_string_literal: true
 ActiveAdmin.register Product do
-  permit_params :name, :description, :price, :size, :category_id
-
+  permit_params :name, :description, :price, :size, :category_id, images: []
+  show do
+    attributes_table do
+      row :name
+      row :description
+      row :price
+      row :size
+      row :category
+      row :created_at
+      row :updated_at
+      row "Images" do |product|
+        if product.images.attached?
+          product.images.each do |image|
+            span image_tag(image.variant(resize: "300x300")), class: "admin-image-preview"
+          end
+        else
+          span "No images attached", class: "admin-image-preview"
+        end
+      end
+    end
+  end
   index do
     selectable_column
     id_column
@@ -24,7 +44,8 @@ ActiveAdmin.register Product do
       f.input :description
       f.input :price
       f.input :size, as: :select, collection: ["Small", "Medium", "Large", "X-Large"]
-      f.input :category
+      f.input :category_id, as: :select, collection: Category.pluck(:name, :id)
+      f.input :images, as: :file, input_html: { multiple: true }
     end
     f.actions
   end
