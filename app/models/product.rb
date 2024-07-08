@@ -4,7 +4,7 @@ class Product < ApplicationRecord
 
   validates :name, :description, :price, :size, :category_id, presence: true
 
-  paginates_per 10
+  paginates_per 8
 
 
   def self.ransackable_attributes(auth_object = nil)

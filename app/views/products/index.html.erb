@@ -1,9 +1,9 @@
 <div class="bg-white">
   <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">Explore Our Collection</h2>
+    <h2 class="text-7xl font-extrabold tracking-tight text-gray-900">Explore Our Collection</h2>
 
     <!-- Category Links -->
-    <div class="flex flex-wrap items-center justify-center space-x-4 mb-8">
+    <div class="flex flex-wrap items-center justify-center space-x-4 mb-8 text-black">
       <% Category.all.each do |category| %>
         <%= link_to category.name, products_path(category_id: category.id), class: "px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" %>
       <% end %>

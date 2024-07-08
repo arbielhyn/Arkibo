@@ -4,7 +4,7 @@ const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 module.exports = {
   mode: "production", // Set mode to 'production' for optimized builds
-  entry: "./src/index.js", // Entry point of your application
+  source_path: app / javascript, // Entry point of your application
   output: {
     filename: "bundle.js", // Output bundle file name
     path: path.resolve(__dirname, "dist"), // Output directory

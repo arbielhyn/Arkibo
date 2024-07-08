@@ -1,16 +1,16 @@
 <div class="container mx-auto px-4 py-8">
   <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-      <nav>
-    <%= breadcrumbs %>
-  </nav>
-    <div class="px-6 py-4">
-      <h1 class="text-3xl font-semibold text-gray-900 mb-4"><%= @product.name %></h1>
-      <p class="text-lg text-gray-700 mb-4"><%= @product.description %></p>
-      <div class="flex justify-between items-center mb-4">
-        <p class="text-xl font-medium text-gray-900">Price: <%= number_to_currency(@product.price) %></p>
-        <p class="text-xl font-medium text-gray-900">Size: <%= @product.size %></p>
+    <nav class="bg-gray-100 px-6 py-3">
+      <%= breadcrumbs %>
+    </nav>
+    <div class="px-6 py-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6"><%= @product.name %></h1>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed"><%= @product.description %></p>
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+        <p class="text-2xl font-semibold text-gray-900">Price: <%= number_to_currency(@product.price) %></p>
+        <p class="text-2xl font-semibold text-gray-900">Size: <%= @product.size %></p>
       </div>
-      <p class="text-lg text-gray-700 mb-4">Category: <%= @product.category.name %></p>
+      <p class="text-lg text-gray-700">Category: <%= @product.category.name %></p>
     </div>
   </div>
 </div>
