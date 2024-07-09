@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
+  devise_for :users
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  # Your other routes here
+
   get 'about', to: 'pages#show', defaults: { title: 'About' }
   get 'contact', to: 'pages#show', defaults: { title: 'Contact' }
-  root to: 'products#index'
+  root 'products#index'
 
   # Categories routes with nested category_products
   resources :categories, only: [:index, :show] do
     resources :category_products, only: [:index], as: :products
   end
 
-    # ActiveAdmin routes
-    devise_for :admin_users, ActiveAdmin::Devise.config
-    ActiveAdmin.routes(self)
   # Products routes
   resources :products, only: [:index, :show]
 

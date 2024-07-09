@@ -9,6 +9,12 @@
       <%= link_to 'About', about_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <%= link_to 'Contact', contact_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <!-- Add other links here when available -->
+           <% if user_signed_in? %>
+
+        <%= link_to 'Sign up', new_user_registration_path %>
+        <%= link_to 'Login', new_user_session_path %>
+      <% end %>
+    </ul>
     </div>
     <div class="hidden md:flex space-x-4 items-center">
       <!-- Add login and signup links when available -->

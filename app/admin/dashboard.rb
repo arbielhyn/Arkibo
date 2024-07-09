@@ -10,6 +10,14 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    columns do
+      column do
+        panel "Quick Links" do
+          ul do
+            li link_to("Product Page", admin_products_path)
+            li link_to("Contact Page", contact_path)
+          end
+        end
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do
@@ -30,4 +38,6 @@ ActiveAdmin.register_page "Dashboard" do
     #   end
     # end
   end # content
+end
+end
 end
