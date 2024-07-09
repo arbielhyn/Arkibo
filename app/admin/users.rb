@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :username, :name, :email, :address, :province_id
+  permit_params :username, :name, :email, :street, :city, :postal_code, :province
 
   index do
     selectable_column
@@ -7,8 +7,10 @@ ActiveAdmin.register User do
     column :username
     column :name
     column :email
-    column :address
-    column :province_id
+    column :street
+    column :city
+    column :postal_code
+    column :province
     column :created_at
     column :updated_at
     actions
@@ -24,8 +26,10 @@ ActiveAdmin.register User do
       f.input :username
       f.input :name
       f.input :email
-      f.input :address
-      f.input :province_id, as: :select, collection: Province.all.map { |p| [p.name, p.id] }
+      f.input :street
+      f.input :city
+      f.input :postal_code
+      f.input :province
     end
     f.actions
   end

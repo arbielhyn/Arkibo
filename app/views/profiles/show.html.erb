@@ -1,0 +1,12 @@
+<div class="profile-container">
+  <h2>Profile</h2>
+
+  <div class="profile-details">
+    <p><strong>Username:</strong> <%= @user.username %></p>
+    <p><strong>Name:</strong> <%= @user.name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <p><strong>Address:</strong> <%= @user.street %>, <%= @user.city %>, <%= @user.postal_code %>, <%= @user.province %></p>
+  </div>
+
+  <%= link_to 'Edit Profile', edit_user_registration_path, class: 'edit-profile-link' %>
+</div>

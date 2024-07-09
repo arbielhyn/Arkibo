@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'profiles/show'
+  get 'profiles/edit'
+  get 'profiles/update'
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
   # Products routes
   resources :products, only: [:index, :show]
 
+  resource :profile, only: [:show, :edit, :update]
   mount Ckeditor::Engine => '/ckeditor'
 
   # Route for handling 404 errors

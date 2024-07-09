@@ -1,43 +1,68 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg p-6">
+  <h2 class="text-xl font-bold mb-4">Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="mb-4">
+      <%= f.label :username, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :username, class: "form-input mt-1 block w-full", required: true %>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div class="mb-4">
+      <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "form-input mt-1 block w-full", required: true %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email, class: "form-input mt-1 block w-full", required: true, autocomplete: "email" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :street, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :street, class: "form-input mt-1 block w-full" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :city, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :city, class: "form-input mt-1 block w-full" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :postal_code, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :postal_code, class: "form-input mt-1 block w-full" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :province, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :province, class: "form-input mt-1 block w-full" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700" %> 
+      <span class="text-xs italic">(leave blank if you don't want to change it)</span>
+      <%= f.password_field :password, class: "form-input mt-1 block w-full", autocomplete: "new-password" %>
+      <% if @minimum_password_length %>
+        <p class="text-xs mt-1 text-gray-600"><em><%= @minimum_password_length %> characters minimum</em></p>
+      <% end %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.password_field :password_confirmation, class: "form-input mt-1 block w-full", autocomplete: "new-password" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :current_password, class: "block text-sm font-medium text-gray-700" %>
+      <span class="text-xs italic">(we need your current password to confirm your changes)</span>
+      <%= f.password_field :current_password, class: "form-input mt-1 block w-full", autocomplete: "current-password" %>
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit "Update", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+  <%= link_to "Back", :back, class: "text-sm text-gray-600 mt-2 inline-block" %>
+</div>

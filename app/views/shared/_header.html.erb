@@ -8,11 +8,15 @@
       <%= link_to 'Shop', products_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <%= link_to 'About', about_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <%= link_to 'Contact', contact_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
+      <%= link_to 'My Profile', profile_path %>
       <!-- Add other links here when available -->
            <% if user_signed_in? %>
-
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+      <% else %>
         <%= link_to 'Sign up', new_user_registration_path %>
         <%= link_to 'Login', new_user_session_path %>
+        <%= link_to 'My Profile', profile_path %>
+
       <% end %>
     </ul>
     </div>
@@ -28,11 +32,5 @@
     </div>
   </div>
 
-  <div x-show="open" class="md:hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <%= link_to 'Home', root_path, class: 'block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50' %>
-      <%= link_to 'Shop', products_path, class: 'block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50' %>
-      <!-- Add other links here when available -->
-    </div>
   </div>
 </header>
