@@ -7,6 +7,11 @@
     <%= csp_meta_tag %>
 <!--<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %> -->
 <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag '//cdn.ckeditor.com/4.16.0/standard/ckeditor.js' %>
+<%= stylesheet_link_tag '//cdn.ckeditor.com/4.16.0/standard/ckeditor.css' %>
+
+
 
     <%= javascript_importmap_tags %>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
