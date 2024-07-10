@@ -8,17 +8,29 @@ class CartController < ApplicationController
     redirect_to cart_path, notice: "#{product.name} added to cart"
   end
 
-
   def remove
-    product_id = params[:id].to_i
-    @cart.delete_if { |item| item[:id] == product_id }
-    session[:cart] = @cart
-    redirect_to cart_path, notice: "Product removed from cart"
+    @cart_item = current_user.cart.cart_items.find_by(id: params[:id])
+    if @cart_item
+      @cart_item.destroy
+      flash[:notice] = "Item removed from cart."
+    else
+      flash[:alert] = "Item not found in cart."
+    end
+    redirect_to cart_path
   end
 
   def show
-    @cart_total = @cart.sum { |item| item[:price].to_f }
-    Rails.logger.debug "Cart contents: #{@cart}"
+    if current_user && current_user.cart
+      @cart_items = current_user.cart.cart_items.includes(:product)
+    else
+      @cart_items = []
+      @cart.each do |item|
+        product = Product.find_by(id: item[:id])
+        if product
+          @cart_items << CartItem.new(product: product, quantity: item[:quantity])
+        end
+      end
+    end
   end
 
   private

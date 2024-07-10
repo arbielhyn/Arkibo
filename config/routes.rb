@@ -22,15 +22,25 @@ Rails.application.routes.draw do
 
   # Products routes
   resources :products, only: [:index, :show]
+  resources :products do
+    post 'add_to_cart', on: :member  # Defines a POST route for adding to cart
+  end
 
   resource :profile, only: [:show, :edit, :update]
+
+  # Cart routes
+  resource :cart, only: [:show] do
+    delete 'remove/:id', to: 'carts#remove', as: 'remove_from_cart'  # Route for removing from cart
+  end
+
+  # Routes for cart actions
+  patch 'cart/update_quantity/:id', to: 'carts#update_quantity', as: 'update_cart_quantity'
+
   mount Ckeditor::Engine => '/ckeditor'
 
     # Routes for cart actions
-    post 'cart/add/:id', to: 'cart#add', as: 'add_to_cart'
-    patch 'cart/update_quantity/:id', to: 'cart#update_quantity', as: 'update_cart_quantity'
-    delete 'cart/remove/:id', to: 'cart#remove', as: 'remove_from_cart'
-    get 'cart', to: 'cart#show', as: 'cart'
+    delete 'cart/remove/:id', to: 'carts#remove', as: 'remove_from_cart'
+    get 'cart/show', to: 'carts#show', as: 'show_cart'
 
   # Route for handling 404 errors
   get '*path', to: 'application#render_404', via: :all
