@@ -10,18 +10,29 @@
       <%= link_to 'Contact', contact_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <%= link_to 'My Profile', profile_path %>
       <!-- Add other links here when available -->
-           <% if user_signed_in? %>
-        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Sign up', new_user_registration_path %>
-        <%= link_to 'Login', new_user_session_path %>
-        <%= link_to 'My Profile', profile_path %>
-
+    </div>
+    <div class="flex flex-1 justify-center md:justify-end items-center space-x-4">
+      <%= form_with(url: products_path, method: :get, local: true, class: "flex items-center space-x-2") do %>
+        <div class="relative">
+          <%= text_field_tag :keyword, params[:keyword], placeholder: "Search...", class: "border border-gray-300 rounded-md py-2 px-4" %>
+        </div>
+        <div class="relative">
+          <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), { include_blank: "All Categories", class: "border border-gray-300 rounded-md py-2 px-4" } %>
+        </div>
+        <div>
+          <%= submit_tag "Search", class: "bg-blue-500 text-white rounded-md py-2 px-4" %>
+        </div>
       <% end %>
-    </ul>
     </div>
     <div class="hidden md:flex space-x-4 items-center">
       <!-- Add login and signup links when available -->
+      <% if user_signed_in? %>
+        <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Sign up', new_user_registration_path %>
+        <%= link_to 'Login', new_user_session_path %>
+
+      <% end %>
     </div>
     <div class="md:hidden">
       <button @click="open = !open" class="text-blue-700 focus:outline-none">

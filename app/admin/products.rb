@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register Product do
-  permit_params :name, :description, :price, :size, :category_id, images: []
+  permit_params :name, :description, :price, :size, :category_id, :on_sale, images: []
+
   show do
     attributes_table do
       row :name
@@ -10,6 +11,7 @@ ActiveAdmin.register Product do
       row :category
       row :created_at
       row :updated_at
+      row :on_sale  # Add this row to display on_sale status
       row "Images" do |product|
         if product.images.attached?
           product.images.each do |image|
@@ -21,6 +23,7 @@ ActiveAdmin.register Product do
       end
     end
   end
+
   index do
     selectable_column
     id_column
@@ -29,6 +32,7 @@ ActiveAdmin.register Product do
     column :price
     column :size
     column :category
+    column :on_sale, &:on_sale  # Display on_sale status in the index
     column :created_at
     actions
   end
@@ -45,6 +49,7 @@ ActiveAdmin.register Product do
       f.input :price
       f.input :size, as: :select, collection: ["Small", "Medium", "Large", "X-Large"]
       f.input :category_id, as: :select, collection: Category.pluck(:name, :id)
+      f.input :on_sale, as: :boolean  # Add checkbox for on_sale status
       f.input :images, as: :file, input_html: { multiple: true }
     end
     f.actions

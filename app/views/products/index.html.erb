@@ -7,6 +7,9 @@
       <% Category.all.each do |category| %>
         <%= link_to category.name, products_path(category_id: category.id), class: "px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" %>
       <% end %>
+        <%= link_to "Sale", products_path(on_sale: true), class: "px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" %>
+  <%= link_to "New", products_path(new_products: true), class: "px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" %>
+  <%= link_to "Recently Updated", products_path(recently_updated: true), class: "px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" %>
     </div>
 
   <nav>
@@ -22,6 +25,11 @@
 
           <div class="mt-4 text-sm text-gray-700"><%= product.name %></div>
           <div class="mt-1 text-lg font-medium text-gray-900"><%= number_to_currency(product.price) %></div>
+                  <div>
+          <% if product.on_sale? %>
+            <span class="badge badge-success">On Sale</span>
+          <% end %>
+        </div>
         </a>
       <% end %>
     </div>
