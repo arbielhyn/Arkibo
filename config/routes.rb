@@ -22,15 +22,15 @@ Rails.application.routes.draw do
 
   # Products routes
   resources :products, only: [:index, :show]
-  resources :products do
-    post 'add_to_cart', on: :member  # Defines a POST route for adding to cart
+  resources :products, only: [:index, :show] do
+    post 'add_to_cart', on: :member
   end
 
   resource :profile, only: [:show, :edit, :update]
 
   # Cart routes
   resource :cart, only: [:show] do
-    delete 'remove/:id', to: 'carts#remove', as: 'remove_from_cart'  # Route for removing from cart
+    delete 'cart/remove/:id', to: 'carts#remove', as: 'remove_from_cart'  # Route for removing from cart
   end
 
   # Routes for cart actions
