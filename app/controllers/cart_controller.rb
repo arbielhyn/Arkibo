@@ -9,16 +9,6 @@ class CartController < ApplicationController
     redirect_to cart_path, notice: "#{product.name} added to cart"
   end
 
-  def remove
-    cart_item = CartItem.find_by(id: params[:id])
-    if cart_item
-      cart_item.destroy
-      redirect_to cart_path, notice: "Product removed from cart."
-    else
-      redirect_to cart_path, alert: "Product not found in cart."
-    end
-  end
-
   def show
     if current_user && current_user.cart
       @cart_items = current_user.cart.cart_items.includes(:product)
@@ -29,6 +19,12 @@ class CartController < ApplicationController
         @cart_items << CartItem.new(product:, quantity: item[:quantity]) if product
       end
     end
+  end
+
+  def remove_item
+    cart_item = CartItem.find(params[:id])
+    cart_item.destroy
+    redirect_to cart_path, notice: "Item successfully removed from your cart."
   end
 
   private

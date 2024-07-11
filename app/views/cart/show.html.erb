@@ -30,7 +30,8 @@
             <div class="text-sm text-gray-900"><%= number_to_currency(cart_item.quantity * cart_item.product.price) if cart_item.product.price && cart_item.quantity %></div>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
-            <%= link_to 'Remove', remove_from_cart_path(cart_item.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= button_to 'Remove', remove_cart_item_cart_path(cart_item), method: :delete, data: { confirm: 'Are you sure?' } %>
+
           </td>
         </tr>
       <% end %>

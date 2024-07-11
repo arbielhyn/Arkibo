@@ -1,35 +1,31 @@
 ActiveAdmin.register Page do
-    permit_params :title, :content
+  permit_params :title, :content
 
-    form do |f|
-      f.inputs do
-        f.input :title
-        f.input :content, as: :ckeditor # if you have a rich text editor like CKEditor installed
-      end
-      f.actions
+  index do
+    selectable_column
+    column :id
+    column :title
+    column :content
+    column :created_at
+    column :updated_at
+    actions
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :title
+      f.input :content, :as => :ckeditor  # Assuming CKEditor is integrated
+      # Use `:text` if CKEditor is not used
     end
+    f.actions
+  end
 
-    show do
-      attributes_table do
-        row :title
-        row :content do |page|
-          raw page.content # use `raw` if you want to render HTML content
-        end
+  show do
+    attributes_table do
+      row :title
+      row :content do |page|
+        raw page.content  # Render HTML content
       end
     end
   end
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :title, :content
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:title, :content]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+end

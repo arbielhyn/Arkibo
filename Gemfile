@@ -16,7 +16,7 @@ gem 'mini_magick'
 gem 'faker'
 
 #ckeditor
-gem 'ckeditor'
+gem 'ckeditor', '4.2.4'
 
 #carrierwave
 gem 'carrierwave'
@@ -27,6 +27,9 @@ gem 'jquery-rails'
 # Rubocop
 gem 'rubocop'
 gem 'rubocop-rails'
+
+#friendly
+gem 'friendly_id', '~> 5.4.0'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
