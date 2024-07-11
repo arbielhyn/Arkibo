@@ -1,68 +1,71 @@
-<div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg p-6">
-  <h2 class="text-xl font-bold mb-4">Edit <%= resource_name.to_s.humanize %></h2>
+<!-- app/views/devise/registrations/edit.html.erb -->
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-
-    <div class="mb-4">
-      <%= f.label :username, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :username, class: "form-input mt-1 block w-full", required: true %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :name, class: "form-input mt-1 block w-full", required: true %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.email_field :email, class: "form-input mt-1 block w-full", required: true, autocomplete: "email" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :street, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :street, class: "form-input mt-1 block w-full" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :city, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :city, class: "form-input mt-1 block w-full" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :postal_code, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :postal_code, class: "form-input mt-1 block w-full" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :province, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :province, class: "form-input mt-1 block w-full" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :password, class: "block text-sm font-medium text-gray-700" %> 
-      <span class="text-xs italic">(leave blank if you don't want to change it)</span>
-      <%= f.password_field :password, class: "form-input mt-1 block w-full", autocomplete: "new-password" %>
-      <% if @minimum_password_length %>
-        <p class="text-xs mt-1 text-gray-600"><em><%= @minimum_password_length %> characters minimum</em></p>
-      <% end %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.password_field :password_confirmation, class: "form-input mt-1 block w-full", autocomplete: "new-password" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :current_password, class: "block text-sm font-medium text-gray-700" %>
-      <span class="text-xs italic">(we need your current password to confirm your changes)</span>
-      <%= f.password_field :current_password, class: "form-input mt-1 block w-full", autocomplete: "current-password" %>
-    </div>
-
-    <div class="mt-6">
-      <%= f.submit "Update", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<%= form_with(model: current_user, url: user_registration_path, method: :put) do |form| %>
+  <% if current_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% current_user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
-  <%= link_to "Back", :back, class: "text-sm text-gray-600 mt-2 inline-block" %>
-</div>
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :street %>
+    <%= form.text_field :street %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postal_code %>
+    <%= form.text_field :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :province %>
+    <%= form.text_field :province %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_password %>
+    <%= form.password_field :current_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+    <% if current_user.new_record? %>
+      <p>(leave blank if you don't want to change it)</p>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Update' %>
+  </div>
+<% end %>

@@ -1,7 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at,
-  :remember_created_at, :created_at, :updated_at, :street, :city, :postal_code,
-  :province, :username, :name
+  permit_params :username, :name, :email, :street, :city, :postal_code, :province, :password, :password_confirmation
 
   index do
     selectable_column

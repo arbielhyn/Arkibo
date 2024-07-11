@@ -1,43 +1,71 @@
-<h2>Edit Profile</h2>
+<!-- app/views/users/edit.html.erb -->
 
-<%= form_with(model: @user, url: profile_path, method: :patch) do |form| %>
-  <div class="form-group">
+<%= form_with(model: current_user, url: user_registration_path, method: :put) do |form| %>
+  <% if current_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% current_user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
     <%= form.label :username %>
-    <%= form.text_field :username, class: 'form-control', required: true %>
+    <%= form.text_field :username %>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control', required: true %>
+    <%= form.text_field :name %>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <%= form.label :email %>
-    <%= form.email_field :email, class: 'form-control', required: true %>
+    <%= form.email_field :email %>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <%= form.label :street %>
-    <%= form.text_field :street, class: 'form-control' %>
+    <%= form.text_field :street %>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <%= form.label :city %>
-    <%= form.text_field :city, class: 'form-control' %>
+    <%= form.text_field :city %>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <%= form.label :postal_code %>
-    <%= form.text_field :postal_code, class: 'form-control' %>
+    <%= form.text_field :postal_code %>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <%= form.label :province %>
-    <%= form.text_field :province, class: 'form-control' %>
+    <%= form.text_field :province %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_password %>
+    <%= form.password_field :current_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+    <% if current_user.new_record? %>
+      <p>(leave blank if you don't want to change it)</p>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
   </div>
 
   <div class="actions">
-    <%= form.submit 'Update Profile', class: 'btn btn-primary' %>
+    <%= form.submit 'Update' %>
   </div>
 <% end %>
-

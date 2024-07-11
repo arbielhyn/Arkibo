@@ -1,4 +1,5 @@
 class CartController < ApplicationController
+  before_action :authenticate_user!
   before_action :initialize_cart
 
   def add
@@ -9,17 +10,12 @@ class CartController < ApplicationController
   end
 
   def remove
-    if current_user
-      @cart_item = @cart.cart_items.find(params[:id])
-      @cart_item.destroy
+    cart_item = CartItem.find_by(id: params[:id])
+    if cart_item
+      cart_item.destroy
+      redirect_to cart_path, notice: "Product removed from cart."
     else
-      @cart.reject! { |item| item["id"] == params[:id].to_i }
-      session[:cart] = @cart
-    end
-
-    respond_to do |format|
-      format.html { redirect_to cart_path, notice: 'Product removed from cart.' }
-      format.js   # This will look for a corresponding remove.js.erb file
+      redirect_to cart_path, alert: "Product not found in cart."
     end
   end
 
@@ -30,9 +26,7 @@ class CartController < ApplicationController
       @cart_items = []
       @cart.each do |item|
         product = Product.find_by(id: item[:id])
-        if product
-          @cart_items << CartItem.new(product: product, quantity: item[:quantity])
-        end
+        @cart_items << CartItem.new(product:, quantity: item[:quantity]) if product
       end
     end
   end
@@ -46,5 +40,5 @@ class CartController < ApplicationController
       session[:cart] ||= []
       @cart = session[:cart]
     end
-end
+  end
 end

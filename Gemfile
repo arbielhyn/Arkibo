@@ -24,6 +24,9 @@ gem 'carrierwave'
 #jquery
 gem 'jquery-rails'
 
+# Rubocop
+gem 'rubocop'
+gem 'rubocop-rails'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 

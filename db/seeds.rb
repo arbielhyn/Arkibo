@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-require 'faker'
+require "faker"
 
 # Clear existing data
 Category.destroy_all
@@ -26,11 +26,11 @@ end
 # Create products
 100.times do
   Product.create!(
-    name: Faker::Commerce.product_name,
+    name:        Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
-    price: Faker::Commerce.price(range: 10..100.0),
-    category: categories.sample,
-    size: sizes.sample
+    price:       Faker::Commerce.price(range: 10..100.0),
+    category:    categories.sample,
+    size:        sizes.sample
   )
 end
 

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'cart/add'
-  get 'cart/remove'
   get 'cart/show'
   get 'profiles/show'
   get 'profiles/edit'
@@ -30,9 +29,9 @@ Rails.application.routes.draw do
 
   # Cart routes
   resource :cart, only: [:show] do
-    delete 'cart/remove/:id', to: 'carts#remove', as: 'remove_from_cart'  # Route for removing from cart
+    delete 'remove/:id', to: 'carts#remove', as: 'remove_from_cart'
+    get 'show', to: 'carts#show'  # Route for showing cart
   end
-
   # Routes for cart actions
   patch 'cart/update_quantity/:id', to: 'carts#update_quantity', as: 'update_cart_quantity'
 
