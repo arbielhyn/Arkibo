@@ -1,0 +1,56 @@
+<!-- app/views/orders/checkout.html.erb -->
+
+<h1>Checkout</h1>
+
+<%= form_with(model: @order, url: checkout_order_path(@order), method: :get) do |f| %>
+  <!-- Order summary -->
+  <h2>Order Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.product.price) %></td>
+          <td><%= number_to_currency(item.quantity * item.product.price) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan="3"><strong>Total</strong></td>
+        <td><strong><%= number_to_currency(@order.total_amount) %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Customer information form -->
+  <h2>Customer Information</h2>
+  <%= f.fields_for :customer, current_user do |customer_fields| %>
+    <div class="field">
+      <%= customer_fields.label :name %>
+      <%= customer_fields.text_field :name %>
+    </div>
+    <div class="field">
+      <%= customer_fields.label :email %>
+      <%= customer_fields.email_field :email %>
+    </div>
+    <div class="field">
+      <%= customer_fields.label :address %>
+      <%= customer_fields.text_area :address %>
+    </div>
+    <div class="field">
+      <%= customer_fields.label :province %>
+      <%= customer_fields.text_field :province %>
+    </div>
+  <% end %>
+
+  <!-- Submit button -->
+  <%= f.submit "Place Order", class: "btn btn-primary" %>
+<% end %>

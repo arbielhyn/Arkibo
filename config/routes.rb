@@ -34,9 +34,14 @@ Rails.application.routes.draw do
 
   delete '/cart/remove/:id', to: 'carts#remove_item', as: 'remove_cart_item_cart'
 
-
   # Routes for cart actions
   patch 'cart/update_quantity/:id', to: 'carts#update_quantity', as: 'update_cart_quantity'
+
+    # Order Routes
+    resources :orders, only: [:new, :create, :show]
+    get 'checkout', to: 'orders#checkout', as: 'checkout_orders'
+
+
 
   mount Ckeditor::Engine => '/ckeditor'
 
