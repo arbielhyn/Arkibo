@@ -2,7 +2,7 @@
 
 <h1>Checkout</h1>
 
-<%= form_with(model: @order, url: checkout_order_path(@order), method: :get) do |f| %>
+<%= form_with(model: @order, url: checkout_order_path, method: :post) do |f| %>
   <!-- Order summary -->
   <h2>Order Summary</h2>
   <table>
@@ -11,46 +11,47 @@
         <th>Product</th>
         <th>Quantity</th>
         <th>Unit Price</th>
-        <th>Subtotal</th>
+        <th>Total Price</th>
       </tr>
     </thead>
     <tbody>
-      <% @cart_items.each do |item| %>
+      <% @order.order_items.each do |item| %>
         <tr>
           <td><%= item.product.name %></td>
           <td><%= item.quantity %></td>
-          <td><%= number_to_currency(item.product.price) %></td>
-          <td><%= number_to_currency(item.quantity * item.product.price) %></td>
+          <td>$ <%= item.unit_price %></td>
+          <td>$ <%= item.unit_price * item.quantity %></td>
         </tr>
       <% end %>
-      <tr>
-        <td colspan="3"><strong>Total</strong></td>
-        <td><strong><%= number_to_currency(@order.total_amount) %></strong></td>
-      </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">Subtotal:</td>
+        <td>$ <%= @order %></td>
+      </tr>
+      <tr>
+        <td colspan="3">Tax:</td>
+        <td>$ <%= @order %></td>
+      </tr>
+      <tr>
+        <td colspan="3">Total:</td>
+        <td>$ <%= @order.total_amount %></td>
+      </tr>
+    </tfoot>
+
   </table>
 
-  <!-- Customer information form -->
+  <!-- Customer information -->
   <h2>Customer Information</h2>
-  <%= f.fields_for :customer, current_user do |customer_fields| %>
-    <div class="field">
-      <%= customer_fields.label :name %>
-      <%= customer_fields.text_field :name %>
-    </div>
-    <div class="field">
-      <%= customer_fields.label :email %>
-      <%= customer_fields.email_field :email %>
-    </div>
-    <div class="field">
-      <%= customer_fields.label :address %>
-      <%= customer_fields.text_area :address %>
-    </div>
-    <div class="field">
-      <%= customer_fields.label :province %>
-      <%= customer_fields.text_field :province %>
-    </div>
-  <% end %>
+  <p><strong>Name:</strong> <%= current_user.name %></p>
+  <p><strong>Email:</strong> <%= current_user.email %></p>
+  <p><strong>Address:</strong> <%= current_user.street %></p>
+  <p><strong>Province:</strong> <%= current_user.province %></p>
 
-  <!-- Submit button -->
+  <!-- Payment information (if applicable) -->
+  <!-- Add fields or payment gateway integration as needed -->
+
   <%= f.submit "Place Order", class: "btn btn-primary" %>
 <% end %>
+
+<%= link_to "Cancel", cart_show_path, class: "btn btn-secondary" %>

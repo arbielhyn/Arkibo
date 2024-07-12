@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     # Order Routes
     resources :orders, only: [:new, :create, :show]
     get 'checkout', to: 'orders#checkout', as: 'checkout_orders'
+    post 'checkout', to: 'orders#checkout', as: 'checkout_order'
 
 
 

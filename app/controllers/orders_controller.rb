@@ -1,3 +1,5 @@
+# app/controllers/orders_controller.rb
+
 class OrdersController < ApplicationController
   def checkout
     @order = current_user.orders.build
@@ -5,11 +7,10 @@ class OrdersController < ApplicationController
 
     # Calculate total amount including taxes
     subtotal = @cart_items.sum { |item| item.quantity * item.product.price }
-    province = current_user.province
 
-    # Fetch tax rates for the province
-    tax_rates = Tax.where(province:).first
+    tax_rates = Tax.find_by(province: current_user.province)
 
+    # Calculate total amount including taxes
     @order.total_amount = calculate_total(subtotal, tax_rates)
 
     # Build order items
@@ -31,11 +32,15 @@ class OrdersController < ApplicationController
     else
       # Handle errors if save fails
       flash[:error] = "Failed to create order"
-      render :checkout # or render the checkout form again
+      render :checkout # Render the checkout form again
     end
   end
 
   private
+
+  def calculate_subtotal(cart_items)
+    cart_items.sum { |item| item.quantity * item.product.price }
+  end
 
   def calculate_total(subtotal, tax_rates)
     return subtotal if tax_rates.blank?
