@@ -22,8 +22,13 @@ class CartController < ApplicationController
   end
 
   def remove_item
-    cart_item = CartItem.find(params[:id])
-    cart_item.destroy
+    if current_user && current_user.cart
+      cart_item = current_user.cart.cart_items.find(params[:id])
+      cart_item.destroy
+    else
+      @cart.reject! { |item| item[:id] == params[:id].to_i }
+      session[:cart] = @cart
+    end
     redirect_to cart_path, notice: "Item successfully removed from your cart."
   end
 

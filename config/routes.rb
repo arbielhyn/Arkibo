@@ -31,8 +31,10 @@ Rails.application.routes.draw do
   resource :cart, only: [:show] do
     get 'show', to: 'carts#show'  # Route for showing cart
   end
-
-  delete '/cart/remove/:id', to: 'carts#remove_item', as: 'remove_cart_item_cart'
+  # Cart routes
+  resource :cart, only: [:show] do
+    delete 'remove/:id', to: 'cart#remove_item', as: 'remove_item'
+  end
 
   # Routes for cart actions
   patch 'cart/update_quantity/:id', to: 'carts#update_quantity', as: 'update_cart_quantity'

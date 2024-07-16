@@ -14,7 +14,7 @@ ActiveAdmin.register Page do
   form do |f|
     f.inputs do
       f.input :title
-      f.input :content, :as => :ckeditor  # Assuming CKEditor is integrated
+      f.input :content  # Assuming CKEditor is integrated
       # Use `:text` if CKEditor is not used
     end
     f.actions

@@ -1,17 +1,14 @@
-# app/controllers/orders_controller.rb
-
 class OrdersController < ApplicationController
   def checkout
     @order = current_user.orders.build
     @cart_items = current_user.cart.cart_items.includes(:product)
 
-    # Calculate total amount including taxes
-    subtotal = @cart_items.sum { |item| item.quantity * item.product.price }
-
+    @subtotal = calculate_subtotal(@cart_items)
     tax_rates = Tax.find_by(province: current_user.province)
 
     # Calculate total amount including taxes
-    @order.total_amount = calculate_total(subtotal, tax_rates)
+    @total_amount = calculate_total(@subtotal, tax_rates)
+    @order.total_amount = @total_amount
 
     # Build order items
     @cart_items.each do |cart_item|

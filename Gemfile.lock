@@ -409,6 +409,7 @@ DEPENDENCIES
   devise
   faker
   friendly_id (~> 5.4.0)
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
   jquery-rails

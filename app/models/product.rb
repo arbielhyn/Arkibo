@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :category
   has_many :cart_items, dependent: :destroy
-  has_many_attached :images
+  has_one_attached :image
 
   scope :on_sale, -> { where(on_sale: true) }
 
