@@ -40,13 +40,21 @@ Rails.application.routes.draw do
   patch 'cart/update_quantity/:id', to: 'carts#update_quantity', as: 'update_cart_quantity'
 
     # Order Routes
-    resources :orders, only: [:new, :create, :show]
-    get 'checkout', to: 'orders#checkout', as: 'checkout_orders'
-    post 'checkout', to: 'orders#checkout', as: 'checkout_order'
+    resources :orders, only: [:new, :create] do
+      collection do
+        get 'checkout', to: 'orders#checkout', as: 'checkout'
+        post 'checkout', to: 'orders#create'
+      end
+      member do
+        get 'invoice', to: 'orders#show', as: 'invoice'
+        get 'confirmation'
+      end
+    end
 
 
-
-  mount Ckeditor::Engine => '/ckeditor'
+    resources :users do
+      get 'profile', on: :collection  # Maps /users/profile to UsersController#profile
+    end
 
     # Routes for cart actions
     get 'cart/show', to: 'carts#show', as: 'show_cart'

@@ -1,3 +1,5 @@
+<!-- app/views/profiles/show.html.erb -->
+
 <div class="profile-container">
   <h2>Profile</h2>
 
@@ -7,6 +9,31 @@
     <p><strong>Email:</strong> <%= @user.email %></p>
     <p><strong>Address:</strong> <%= @user.street %>, <%= @user.city %>, <%= @user.postal_code %>, <%= @user.province %></p>
   </div>
+
+    <h2>Past Orders</h2>
+<% if @orders.present? %>
+    <ul>
+      <% @orders.each do |order| %>
+        <% subtotal = order.instance_variable_get(:@subtotal) %>
+        <% tax_amount = order.instance_variable_get(:@tax_amount) %>
+        <li>
+          <strong>Order #<%= order.id %></strong> - 
+          Total: <%= number_to_currency(order.total_amount) %>
+          <br>
+          Subtotal: <%= number_to_currency(subtotal) %>
+          <br>
+          Taxes: <%= number_to_currency(tax_amount) %>
+          <ul>
+            <% order.order_items.each do |item| %>
+              <li><%= item.product.name %> - Quantity: <%= item.quantity %> - Unit Price: <%= number_to_currency(item.unit_price) %> - Total Price: <%= number_to_currency(item.unit_price * item.quantity) %></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No past orders found.</p>
+  <% end %>
 
   <%= link_to 'Edit Profile', edit_user_registration_path, class: 'edit-profile-link' %>
 </div>

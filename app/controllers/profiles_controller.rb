@@ -1,8 +1,13 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user! # Ensure user is logged in
+  def profile
+    @user = current_user
+    @orders = @user.orders.includes(order_items: :product)
+  end
 
   def show
     @user = current_user
+    @orders = @user.orders.includes(order_items: :product)
   end
 
   def edit

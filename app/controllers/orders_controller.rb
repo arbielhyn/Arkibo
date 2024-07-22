@@ -1,4 +1,12 @@
 class OrdersController < ApplicationController
+  def index
+    @orders = current_user.orders.includes(:order_items)
+  end
+
+  def show
+    @order = Order.find(params[:id])
+  end
+
   def checkout
     @order = current_user.orders.build
     @cart_items = current_user.cart.cart_items.includes(:product)
@@ -6,11 +14,13 @@ class OrdersController < ApplicationController
     @subtotal = calculate_subtotal(@cart_items)
     tax_rates = Tax.find_by(province: current_user.province)
 
-    # Calculate total amount including taxes
     @total_amount = calculate_total(@subtotal, tax_rates)
     @order.total_amount = @total_amount
 
-    # Build order items
+    # Set date and status
+    @order.created_at = Time.now
+    @order.status = "pending"
+
     @cart_items.each do |cart_item|
       @order.order_items.build(
         product:    cart_item.product,
@@ -19,18 +29,26 @@ class OrdersController < ApplicationController
       )
     end
 
-    # Prepare to save the order
-    if @order.save
-      # Clear the cart after successful checkout
-      current_user.cart.cart_items.destroy_all
+    render :checkout
+  end
 
-      # Redirect to order confirmation or invoice display
-      redirect_to order_path(@order)
+  def create
+    @order = current_user.orders.build(order_params)
+    @order.status = "pending" # Ensure status is set
+    @order.created_at = Time.now
+
+    if @order.save
+      current_user.cart.cart_items.destroy_all
+      redirect_to confirmation_order_path(@order)
     else
-      # Handle errors if save fails
-      flash[:error] = "Failed to create order"
-      render :checkout # Render the checkout form again
+      flash[:error] = @order.errors.full_messages.join(", ")
+      Rails.logger.debug { @order.errors.full_messages.join(", ") }
+      render :checkout
     end
+  end
+
+  def confirmation
+    @order = Order.find(params[:id])
   end
 
   private
@@ -48,5 +66,12 @@ class OrdersController < ApplicationController
     total += subtotal * (tax_rates.hst / 100) if tax_rates.hst.present?
 
     total.round(2)
+  end
+
+  def order_params
+    params.require(:order).permit(
+      :total_amount,
+      order_items_attributes: [:product_id, :quantity, :unit_price]
+    )
   end
 end

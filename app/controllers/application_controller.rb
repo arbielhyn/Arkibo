@@ -1,7 +1,6 @@
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   # Other actions and configurations
-  before_action :authenticate_user!
   def render_404
     render file: "#{Rails.root.join('public/404.html')}", layout: false, status: :not_found
   end
