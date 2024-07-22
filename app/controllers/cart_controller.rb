@@ -5,9 +5,17 @@ class CartController < ApplicationController
   def add
     product = Product.find(params[:id])
     if current_user
-      current_user.cart.cart_items.create(product:)
+      cart_item = current_user.cart.cart_items.find_or_initialize_by(product:)
+      cart_item.quantity ||= 0
+      cart_item.quantity += 1
+      cart_item.save
     else
-      @cart << { id: product.id, name: product.name, price: product.price, quantity: 1 }
+      existing_item = @cart.find { |item| item[:id] == product.id }
+      if existing_item
+        existing_item[:quantity] += 1
+      else
+        @cart << { id: product.id, name: product.name, price: product.price, quantity: 1 }
+      end
       session[:cart] = @cart
     end
     redirect_to cart_path, notice: "#{product.name} added to cart"

@@ -21,7 +21,9 @@ Rails.application.routes.draw do
 
   # Products routes
   resources :products, only: [:index, :show] do
-    post 'add_to_cart', on: :member
+    member do
+      post 'add_to_cart', to: 'cart#add', as: 'add_to_cart'
+    end
   end
 
   resource :profile, only: [:show, :edit, :update]
