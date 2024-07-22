@@ -25,18 +25,18 @@
       <% end %>
     </tbody>
     <tfoot>
-      <tr>
-        <td colspan="3">Subtotal:</td>
-        <td>$ <%= number_with_precision(@subtotal || 0, precision: 2) %></td>
-      </tr>
-      <tr>
-        <td colspan="3">Tax:</td>
-        <td>$ <%= number_with_precision((@total_amount || 0) - (@subtotal || 0), precision: 2) %></td>
-      </tr>
-      <tr>
-        <td colspan="3">Total:</td>
-        <td>$ <%= number_with_precision(@total_amount || 0, precision: 2) %></td>
-      </tr>
+  <tr>
+    <td colspan="3">Subtotal:</td>
+    <td>$ <%= number_with_precision(@subtotal, precision: 2) %></td>
+  </tr>
+  <tr>
+    <td colspan="3">Tax:</td>
+    <td>$ <%= number_with_precision(@order.tax_amount, precision: 2) %></td>
+  </tr>
+  <tr>
+    <td colspan="3">Total:</td>
+    <td>$ <%= number_with_precision(@order.total_amount, precision: 2) %></td>
+  </tr>
     </tfoot>
   </table>
 

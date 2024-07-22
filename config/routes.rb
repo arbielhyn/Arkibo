@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   end
 
   # Products routes
-  resources :products, only: [:index, :show]
   resources :products, only: [:index, :show] do
     post 'add_to_cart', on: :member
   end

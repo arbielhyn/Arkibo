@@ -4,8 +4,12 @@ class CartController < ApplicationController
 
   def add
     product = Product.find(params[:id])
-    @cart << { id: product.id, name: product.name, price: product.price }
-    session[:cart] = @cart
+    if current_user
+      current_user.cart.cart_items.create(product:)
+    else
+      @cart << { id: product.id, name: product.name, price: product.price, quantity: 1 }
+      session[:cart] = @cart
+    end
     redirect_to cart_path, notice: "#{product.name} added to cart"
   end
 
