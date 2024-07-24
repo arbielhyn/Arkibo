@@ -11,18 +11,18 @@
   </div>
 
     <h2>Past Orders</h2>
-<% if @orders.present? %>
+  <% if @orders.present? %>
     <ul>
       <% @orders.each do |order| %>
-        <% subtotal = order.instance_variable_get(:@subtotal) %>
-        <% tax_amount = order.instance_variable_get(:@tax_amount) %>
         <li>
           <strong>Order #<%= order.id %></strong> - 
           Total: <%= number_to_currency(order.total_amount) %>
           <br>
-          Subtotal: <%= number_to_currency(subtotal) %>
+          Subtotal: <%= number_to_currency(order.subtotal_amount) %>
           <br>
-          Taxes: <%= number_to_currency(tax_amount) %>
+            PST: <%= number_to_currency(order.pst_amount) %>
+            GST: <%= number_to_currency(order.gst_amount) %>
+            HST: <%= number_to_currency(order.hst_amount) %>
           <ul>
             <% order.order_items.each do |item| %>
               <li><%= item.product.name %> - Quantity: <%= item.quantity %> - Unit Price: <%= number_to_currency(item.unit_price) %> - Total Price: <%= number_to_currency(item.unit_price * item.quantity) %></li>

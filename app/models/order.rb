@@ -13,18 +13,29 @@ class Order < ApplicationRecord
     order_items.sum { |item| item.unit_price * item.quantity }
   end
 
+  def pst_amount
+    tax_rates = Tax.find_by(province: user.province) || OpenStruct.new(pst: 0)
+    subtotal * ((tax_rates.pst || 0) / 100.0)
+  end
+
+  def gst_amount
+    tax_rates = Tax.find_by(province: user.province) || OpenStruct.new(gst: 0)
+    subtotal * ((tax_rates.gst || 0) / 100.0)
+  end
+
+  def hst_amount
+    tax_rates = Tax.find_by(province: user.province) || OpenStruct.new(hst: 0)
+    subtotal * ((tax_rates.hst || 0) / 100.0)
+  end
+
   def tax_amount
-    tax_rates = Tax.find_by(province: user.province) || OpenStruct.new(pst: 0, gst: 0, hst: 0)
-    amount = 0
-    amount += subtotal * (tax_rates.pst / 100.0) if tax_rates.pst.present?
-    amount += subtotal * (tax_rates.gst / 100.0) if tax_rates.gst.present?
-    amount += subtotal * (tax_rates.hst / 100.0) if tax_rates.hst.present?
-    amount.round(2)
+    (pst_amount + gst_amount + hst_amount).round(2)
   end
 
   def total_amount
     (subtotal + tax_amount).round(2)
   end
+
   # Ransack configuration
   def self.ransackable_associations(auth_object = nil)
     ["order_items", "user"]

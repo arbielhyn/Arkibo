@@ -29,10 +29,18 @@
     <td colspan="3">Subtotal:</td>
     <td>$ <%= number_with_precision(@subtotal, precision: 2) %></td>
   </tr>
-  <tr>
-    <td colspan="3">Tax:</td>
-    <td>$ <%= number_with_precision(@order.tax_amount, precision: 2) %></td>
-  </tr>
+      <tr>
+        <td colspan="3">PST:</td>
+        <td>$ <%= number_with_precision(@order.pst_amount, precision: 2) %></td>
+      </tr>
+      <tr>
+        <td colspan="3">GST:</td>
+        <td>$ <%= number_with_precision(@order.gst_amount, precision: 2) %></td>
+      </tr>
+      <tr>
+        <td colspan="3">HST:</td>
+        <td>$ <%= number_with_precision(@order.hst_amount, precision: 2) %></td>
+      </tr>
   <tr>
     <td colspan="3">Total:</td>
     <td>$ <%= number_with_precision(@order.total_amount, precision: 2) %></td>
