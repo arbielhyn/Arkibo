@@ -107,19 +107,6 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    carrierwave (3.0.7)
-      activemodel (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      addressable (~> 2.6)
-      image_processing (~> 1.1)
-      marcel (~> 1.0.0)
-      ssrf_filter (~> 1.0)
-    ckeditor (4.2.4)
-      cocaine
-      orm_adapter (~> 0.5.0)
-    climate_control (0.2.0)
-    cocaine (0.6.0)
-      terrapin (= 0.6.0)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -147,8 +134,6 @@ GEM
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
-    friendly_id (5.4.2)
-      activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     has_scope (0.8.2)
@@ -342,7 +327,6 @@ GEM
     sqlite3 (1.7.3-x86-linux)
     sqlite3 (1.7.3-x86_64-darwin)
     sqlite3 (1.7.3-x86_64-linux)
-    ssrf_filter (1.1.2)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.1)
@@ -359,8 +343,6 @@ GEM
       railties (>= 7.0.0)
     tailwindcss-rails (2.6.1-x86_64-linux)
       railties (>= 7.0.0)
-    terrapin (0.6.0)
-      climate_control (>= 0.0.3, < 1.0)
     thor (1.3.1)
     timeout (0.4.1)
     turbo-rails (2.0.5)
@@ -403,12 +385,9 @@ DEPENDENCIES
   activeadmin
   bootsnap
   capybara
-  carrierwave
-  ckeditor (= 4.2.4)
   debug
   devise
   faker
-  friendly_id (~> 5.4.0)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
@@ -424,7 +403,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
-  tailwindcss-rails (~> 2.6)
+  tailwindcss-rails
   turbo-rails
   tzinfo-data
   web-console

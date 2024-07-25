@@ -3,7 +3,10 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items
 
-  validates :total_amount, :status, presence: true
+  # Validations
+  validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :total_amount, presence: true, numericality: { greater_than: 0 }
+  validates :status, presence: true
 
   def subtotal_amount
     order_items.sum { |item| item.unit_price * item.quantity }

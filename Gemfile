@@ -6,6 +6,8 @@ gem 'activeadmin'
 gem 'devise'
 gem 'sassc', '~> 2.0'
 
+# Tailwind
+gem 'tailwindcss-rails'
 #Pagination
 gem 'kaminari'
 
@@ -15,11 +17,6 @@ gem 'mini_magick'
 #faker
 gem 'faker'
 
-#ckeditor
-gem 'ckeditor', '4.2.4'
-
-#carrierwave
-gem 'carrierwave'
 
 #jquery
 gem 'jquery-rails'
@@ -28,8 +25,7 @@ gem 'jquery-rails'
 gem 'rubocop'
 gem 'rubocop-rails'
 
-#friendly
-gem 'friendly_id', '~> 5.4.0'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
@@ -93,7 +89,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "tailwindcss-rails", "~> 2.6"
 
 gem "webpacker", "~> 5.4"

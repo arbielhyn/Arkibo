@@ -13,13 +13,13 @@ class OrdersController < ApplicationController
 
     @subtotal = calculate_subtotal(@cart_items)
     tax_rates = Tax.find_by(province: current_user.province)
-  Rails.logger.debug "Subtotal: #{@subtotal}"
-  Rails.logger.debug "Tax rates: #{tax_rates.inspect}"
+    Rails.logger.debug "Subtotal: #{@subtotal}"
+    Rails.logger.debug "Tax rates: #{tax_rates.inspect}"
     # Calculate total_amount using the Order model's methods
-tax_amount = @order.tax_amount # Call the tax_amount method from the Order model
-total_amount = @order.total_amount # Call the total_amount method from the Order model
-  Rails.logger.debug "Tax Amount: #{tax_amount}"
-  Rails.logger.debug "Total Amount: #{total_amount}"
+    tax_amount = @order.tax_amount # Call the tax_amount method from the Order model
+    total_amount = @order.total_amount # Call the total_amount method from the Order model
+    Rails.logger.debug "Tax Amount: #{tax_amount}"
+    Rails.logger.debug "Total Amount: #{total_amount}"
     @cart_items.each do |cart_item|
       @order.order_items.build(
         product:    cart_item.product,
@@ -73,7 +73,7 @@ total_amount = @order.total_amount # Call the total_amount method from the Order
   def order_params
     params.require(:order).permit(
       :total_amount,
-      order_items_attributes: [:product_id, :quantity, :unit_price]
+      order_items_attributes: %i[product_id quantity unit_price]
     )
   end
 end
