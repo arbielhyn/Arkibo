@@ -1,13 +1,3 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 require "faker"
 
 # Clear existing data
@@ -36,16 +26,29 @@ end
 
 puts "Seeded #{Category.count} categories and #{Product.count} products."
 
-Tax.create(province: "Alberta", pst: nil, gst: 5.0, hst: nil)
-Tax.create(province: "British Columbia", pst: 7.0, gst: 5.0, hst: nil)
-Tax.create(province: "Manitoba", pst: 7.0, gst: 5.0, hst: nil)
-Tax.create(province: "New Brunswick", pst: 10.0, gst: 5.0, hst: nil)
-Tax.create(province: "Newfoundland and Labrador", pst: 10.0, gst: 5.0, hst: nil)
-Tax.create(province: "Northwest Territories", pst: 5.0, gst: 5.0, hst: nil)
-Tax.create(province: "Nova Scotia", pst: 10.0, gst: 5.0, hst: nil)
-Tax.create(province: "Nunavut", pst: 5.0, gst: 5.0, hst: nil)
-Tax.create(province: "Ontario", pst: nil, gst: nil, hst: 13.0)
-Tax.create(province: "Prince Edward Island", pst: 10.0, gst: 5.0, hst: nil)
-Tax.create(province: "Quebec", pst: 9.975, gst: 5.0, hst: nil)
-Tax.create(province: "Saskatchewan", pst: 6.0, gst: 5.0, hst: nil)
-Tax.create(province: "Yukon", pst: nil, gst: 5.0, hst: nil)
+# Create or find tax records
+taxes = [
+  { province: "Alberta", pst: 0, gst: 5.0, hst: 0 },
+  { province: "British Columbia", pst: 7.0, gst: 5.0, hst: 0 },
+  { province: "Manitoba", pst: 7.0, gst: 5.0, hst: 0 },
+  { province: "New Brunswick", pst: 10.0, gst: 5.0, hst: 0 },
+  { province: "Newfoundland and Labrador", pst: 10.0, gst: 5.0, hst: 0 },
+  { province: "Northwest Territories", pst: 5.0, gst: 5.0, hst: 0 },
+  { province: "Nova Scotia", pst: 10.0, gst: 5.0, hst: 0 },
+  { province: "Nunavut", pst: 5.0, gst: 5.0, hst: 0 },
+  { province: "Ontario", pst: 0, gst: 0, hst: 13.0 },
+  { province: "Prince Edward Island", pst: 10.0, gst: 5.0, hst: 0 },
+  { province: "Quebec", pst: 9.975, gst: 5.0, hst: 0 },
+  { province: "Saskatchewan", pst: 6.0, gst: 5.0, hst: 0 },
+  { province: "Yukon", pst: 0, gst: 5.0, hst: 0 }
+]
+
+taxes.each do |tax|
+  Tax.find_or_create_by(province: tax[:province]) do |t|
+    t.pst = tax[:pst]
+    t.gst = tax[:gst]
+    t.hst = tax[:hst]
+  end
+end
+
+puts "Seeded #{Tax.count} tax records."

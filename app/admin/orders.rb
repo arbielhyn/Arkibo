@@ -1,14 +1,24 @@
 ActiveAdmin.register Order do
+  # Permitted parameters
+  permit_params :user_id, :status, :total_amount, order_items_attributes: [:id, :product_id, :quantity, :unit_price, :_destroy]
+
   # Index page configuration
   index do
     selectable_column
     id_column
     column :user
+    column :status
     column :subtotal_amount do |order|
       number_to_currency(order.subtotal_amount)
     end
-    column :tax_amount do |order|
-      number_to_currency(order.tax_amount)
+    column :pst_amount do |order|
+      number_to_currency(order.pst_amount)
+    end
+    column :gst_amount do |order|
+      number_to_currency(order.gst_amount)
+    end
+    column :hst_amount do |order|
+      number_to_currency(order.hst_amount)
     end
     column :total_amount do |order|
       number_to_currency(order.total_amount)
@@ -22,11 +32,18 @@ ActiveAdmin.register Order do
     attributes_table do
       row :id
       row :user
+      row :status
       row :subtotal_amount do |order|
         number_to_currency(order.subtotal_amount)
       end
-      row :tax_amount do |order|
-        number_to_currency(order.tax_amount)
+      row :pst_amount do |order|
+        number_to_currency(order.pst_amount)
+      end
+      row :gst_amount do |order|
+        number_to_currency(order.gst_amount)
+      end
+      row :hst_amount do |order|
+        number_to_currency(order.hst_amount)
       end
       row :total_amount do |order|
         number_to_currency(order.total_amount)
@@ -50,5 +67,15 @@ ActiveAdmin.register Order do
         end
       end
     end
+  end
+
+  # Form configuration to manually change status
+  form do |f|
+    f.inputs "Order Details" do
+      f.input :user
+      f.input :status, as: :select, collection: ['new', 'paid', 'shipped']
+      f.input :total_amount
+    end
+    f.actions
   end
 end
