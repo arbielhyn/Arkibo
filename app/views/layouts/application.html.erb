@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Arkibo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-<!--<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %> -->
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-<%= javascript_importmap_tags %>
 
+    <!-- Ensure unique stylesheet includes -->
+    <%= stylesheet_link_tag 'tailwind', 'inter-font', media: 'all', 'data-turbo-track': 'reload' %>
+
+    <!-- Include JavaScript with appropriate attributes -->
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+
+    <!-- Alpine.js script -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
   </head>
   <body class="bg-gray-100">
-    <header>
-    <%= render 'shared/header' %> <!-- Include the header partial here -->
-    </header>
+      <%= render 'shared/header' %> <!-- Include the header partial here -->
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>

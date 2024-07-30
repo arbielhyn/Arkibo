@@ -1,17 +1,21 @@
-<header x-data="{ open: false }" class="bg-white shadow-md">
-  <div class="container mx-auto px-8 py-8 flex items-center justify-center">
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-8 py-8 flex items-center justify-between">
+    <!-- Brand -->
     <div class="flex items-center">
       <a href="/" class="text-lg font-bold text-gray-900">Arkibo</a>
     </div>
+    
+    <!-- Navigation Links (Desktop) -->
     <div class="hidden md:flex flex-1 justify-center items-center space-x-10">
       <%= link_to 'Home', root_path, class: 'text-lg text-gray-700 hover:text-gray-900' %>
       <%= link_to 'Shop', products_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <%= link_to 'About', about_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
       <%= link_to 'Contact', contact_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
-      <%= link_to 'My Profile', profile_path %>
-<%= link_to 'View Cart', cart_path %>
-      <!-- Add other links here when available -->
+      <%= link_to 'My Profile', profile_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
+      <%= link_to 'View Cart', cart_path, class: 'text-m text-gray-700 hover:text-gray-900' %>
     </div>
+    
+    <!-- Search Form -->
     <div class="flex flex-1 justify-center md:justify-end items-center space-x-4">
       <%= form_with(url: products_path, method: :get, local: true, class: "flex items-center space-x-2") do %>
         <div class="relative">
@@ -25,24 +29,24 @@
         </div>
       <% end %>
     </div>
+    
+    <!-- User Authentication Links -->
     <div class="hidden md:flex space-x-4 items-center">
-      <!-- Add login and signup links when available -->
       <% if user_signed_in? %>
-        <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
+        <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "text-blue-700 focus:outline-none" %>
       <% else %>
-        <%= link_to 'Sign up', new_user_registration_path %>
-        <%= link_to 'Login', new_user_session_path %>
-
+        <%= link_to 'Sign up', new_user_registration_path, class: "text-blue-700 hover:text-blue-900" %>
+        <%= link_to 'Login', new_user_session_path, class: "text-blue-700 hover:text-blue-900" %>
       <% end %>
     </div>
+    
+    <!-- Mobile Menu Button -->
     <div class="md:hidden">
-      <button @click="open = !open" class="text-blue-700 focus:outline-none">
+      <button class="text-blue-700 focus:outline-none">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
         </svg>
       </button>
     </div>
-  </div>
-
   </div>
 </header>
